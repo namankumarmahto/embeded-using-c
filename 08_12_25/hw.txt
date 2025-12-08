@@ -1,0 +1,7 @@
+1.find the palindrom
+2.fibonaci serier
+3.create * pattern 
+      
+      *
+     * *
+   * * * *
