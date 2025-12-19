@@ -1,4 +1,3 @@
-// concatenate two strings with comments and withou function
 #include <stdio.h>
 
 int main() {
@@ -11,18 +10,21 @@ int main() {
     printf("enter second string: ");
     scanf("%s", str2);
 
-    // find the end of the first string
-    for(i=0; str1[i]!='\0'; i++);
+    // find end of first string
+    for(i = 0; str1[i] != '\0'; i++);
 
-    // append a space between the two strings
+    // add space
     str1[i] = ' ';
     i++;
 
-    // append the second string to the first
-    for(j=0; str2[j]!='\0'; j++, i++);
+    // copy second string
+    for(j = 0; str2[j] != '\0'; j++, i++) {
+        str1[i] = str2[j];
+    }
+
+    // add null terminator
     str1[i] = '\0';
 
     printf("concatenated string: %s\n", str1);
-
     return 0;
 }
