@@ -2,7 +2,12 @@
 
 int main(){
     
-    int y=2;
-    printf("%d\n",y+=y*=y-=1);
+    int x=0;
+    if(x){
+        printf("a");
+    }else {
+       printf("b\n");
+    }
+   
     return 0;
 }
