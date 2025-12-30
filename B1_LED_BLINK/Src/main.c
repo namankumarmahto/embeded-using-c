@@ -32,14 +32,34 @@ void delay(); // this function is used to delay the program execution
 
 int main(void)
 {
+
+
+    GPIOA_Init();
+
     /* Loop forever */
+    while (1)
+    {
+        *GPIOA_ODR |= (1 << 5);   // toggle PA5
+        delay();
+
+        *GPIOA_ODR &= ~(1 << 5);
+        delay();
+    }
+}
+// GPIOA initialization
 
     void GPIOA_Init()
     {
-        
+
         *AHB1ENR |= (1 << 0); //enable GPIOA clock
         *GPIOA_Moder |= (1 << 10); // set bit no. 10 of GPIOA mode register to configure GPIOA pin 5 as output
         *GPIOA_Moder &= ~(1 << 11); // set bit no. 11 of GPIOA mode register to configure GPIOA pin 5 as output
-        
+
     }
-}
+
+    //software delay function
+    void delay()
+    {
+        int loop_cnt;
+        for(loop_cnt = 0; loop_cnt < 1000000; loop_cnt++);
+    }

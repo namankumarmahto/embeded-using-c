@@ -16,3 +16,24 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -data /home/naman/STM32C
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-12-29 11:07:42.765
 !MESSAGE Indexed 'B1_LED_BLINK' (3 sources, 53 headers) in 0.54 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+!SESSION 2025-12-30 10:12:01.004 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-30 10:12:06.280
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-30 10:12:06.281
+!MESSAGE Log4j2 initialized with config file /home/naman/STM32CubeIDE/stm32f446/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-30 10:12:11.981
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-12-30 10:27:02.169
+!MESSAGE Indexed 'B2_PUSH_BUTTON' (3 sources, 53 headers) in 0.626 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-12-30 12:47:31.104
+!MESSAGE Indexed 'B3_MODE_COUNTER' (4 sources, 53 headers) in 0.363 sec: 1,956 declarations; 2,865 references; 0 unresolved inclusions; 3 syntax errors; 2 unresolved names (0.041%)
