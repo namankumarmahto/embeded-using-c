@@ -1,74 +1,100 @@
-//write a program to implement a mode counter
 #include <stdint.h>
 
-// Base addresses
-#define RCC_Base     0x40023800
-#define GPIOA_Base   0x40020000
-#define GPIOC_Base   0x40020800
+//Macro Definition
+#define RCC_Base 0x40023800
+#define GPIOC_Base 0x40020800
 
-// Declaration of pointers (FIXED)
-uint32_t *AHB1ENR      = (uint32_t *)(RCC_Base + 0x30);
-uint32_t *GPIOC_Moder = (uint32_t *)(GPIOC_Base + 0x00);
-uint32_t *GPIOC_IDR   = (uint32_t *)(GPIOC_Base + 0x10);
-uint32_t *GPIOC_ODR   = (uint32_t *)(GPIOC_Base + 0x14);
+//Declaration of pointers
+uint32_t  *AHB1ENR = (uint32_t*)(RCC_Base + 0x30);
+uint32_t *GPIOC_Moder = (uint32_t*) (GPIOC_Base + 0x00);
+uint32_t *GPIOC_IDR = (uint32_t*) (GPIOC_Base + 0x10);
+uint32_t *GPIOC_ODR = (uint32_t*) (GPIOC_Base + 0x14);
 
-// function prototypes
-void GPIO_Init(void);
+
+//Function prototyping
+void GPIO_init();
 void unpack(uint8_t);
-void bit_porting(void);
+void bit_porting();
 
-// Global declarations
-uint8_t b0 = 0, b1 = 0, b2 = 0, b3 = 0;
+//Global variable declarations
+uint8_t b0=0, b1=0, b2=0, b3=0;
 uint8_t mod = 16;
+
 
 int main(void)
 {
-<<<<<<< HEAD
-    // infinite loop
-	
-=======
-    uint32_t count = 0;
-    GPIO_Init();
-
-    while (1)
-    {
-        if (!(*GPIOC_IDR & (1 << 13)))
-        {
-            while (!(*GPIOC_IDR & (1 << 13)));
-
-            if (count < (mod - 1))
-                count++;
-            else
-                count = 0;
-
-            unpack(count);
-            bit_porting();
-        }
-    }
+	uint32_t count = 0;
+	GPIO_init();
+	//Infinite loopif
+	while(1)
+	{
+		if(!(*GPIOC_IDR & (1<<13)))
+		{
+			while(!(*GPIOC_IDR & (1<<13)));
+			if(count < (mod - 1))
+			{
+				count++;
+			}
+			else
+			{
+				count=0;
+			}
+		}
+		unpack(count);
+		bit_porting();
+	}
 }
 
-// bit porting function
-void bit_porting(void)
+//GPIO initialization function
+void GPIO_init()
 {
-    *GPIOC_ODR = (b0 << 0) | (b1 << 1) | (b2 << 2) | (b3 << 3);
+	*AHB1ENR |= (1<<2);
+	*GPIOC_Moder &= ~(1<<26);
+	*GPIOC_Moder &= ~(1<<27);
+	*GPIOC_Moder = (1<<0) | (1<<2) | (1<<4) | (1<<6);
 }
 
-// GPIO initialization function (NAME FIXED)
-void GPIO_Init(void)
-{
-    *AHB1ENR |= (1 << 2);        // Enable GPIOC clock
-
-    *GPIOC_Moder &= ~(3 << 26);  // PC13 input
-    *GPIOC_Moder &= ~(3 << 0);   // Clear PC0–PC3
-    *GPIOC_Moder |=  (1 << 0) | (1 << 2) | (1 << 4) | (1 << 6); // PC0–PC3 output
-}
-
-// Unpacking digits into bits (FIXED)
+//Unpacking digits into bits
 void unpack(uint8_t val)
 {
-    b0 = (val >> 0) & 1;
-    b1 = (val >> 1) & 1;
-    b2 = (val >> 2) & 1;
-    b3 = (val >> 3) & 1;
->>>>>>> c9009a5 ( added code in b3)
+	b0 = val & 0x1;
+	b1 = val & 0x2;
+	b2 = val & 0x4;
+	b3 = val & 0x8;
+}
+
+void bit_porting()
+{
+	if(b0)
+	{
+		*GPIOC_ODR |= (1<<0);
+	}
+	else
+	{
+		*GPIOC_ODR &= ~(1<<0);
+	}
+	if(b1)
+	{
+		*GPIOC_ODR |= (1<<1);
+	}
+	else
+	{
+		*GPIOC_ODR &= ~(1<<1);
+	}
+	if(b2)
+	{
+		*GPIOC_ODR |= (1<<2);
+	}
+	else
+	{
+		*GPIOC_ODR &= ~(1<<2);
+	}
+	if(b3)
+	{
+		*GPIOC_ODR |= (1<<3);
+	}
+	else
+	{
+		*GPIOC_ODR &= ~(1<<3);
+	}
 }
