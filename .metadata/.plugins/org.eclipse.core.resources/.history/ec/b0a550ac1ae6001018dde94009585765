@@ -1,4 +1,4 @@
-// write a program to implement an ABCD (BCD) counter
+//write a program to implement a mode counter
 #include <stdint.h>
 
 // Base addresses
@@ -19,8 +19,8 @@ void bit_porting(void);
 
 // Global declarations
 uint8_t b0 = 0, b1 = 0, b2 = 0, b3 = 0;
-uint8_t mod = 10;          // ABCD counter → MOD-10
-uint8_t count_put = 0;     // 0 → UP (default), 1 → DOWN
+uint8_t mod = 16;
+uint8_t count_put = 0;   // 0 → UP counter, 1 → DOWN counter
 
 int main(void)
 {
@@ -33,15 +33,15 @@ int main(void)
         {
             while (!(*GPIOC_IDR & (1 << 13)));
 
-            // -------- ABCD COUNTER LOGIC --------
-            if (count_put == 0)          // UP counter
+            /* -------- MODE SELECTION -------- */
+            if (count_put == 0)       // UP counter
             {
                 if (count < (mod - 1))
                     count++;
                 else
                     count = 0;
             }
-            else                         // DOWN counter
+            else                      // DOWN counter
             {
                 if (count > 0)
                     count--;
@@ -55,7 +55,7 @@ int main(void)
     }
 }
 
-// bit porting function (ABCD → PC0–PC3)
+// bit porting function
 void bit_porting(void)
 {
     *GPIOC_ODR = (b0 << 0) | (b1 << 1) | (b2 << 2) | (b3 << 3);
@@ -66,16 +66,16 @@ void GPIO_Init(void)
 {
     *AHB1ENR |= (1 << 2);        // Enable GPIOC clock
 
-    *GPIOC_Moder &= ~(3 << 26);  // PC13 input (button)
+    *GPIOC_Moder &= ~(3 << 26);  // PC13 input
     *GPIOC_Moder &= ~(3 << 0);   // Clear PC0–PC3
     *GPIOC_Moder |=  (1 << 0) | (1 << 2) | (1 << 4) | (1 << 6); // PC0–PC3 output
 }
 
-// Unpacking decimal digit into ABCD bits
+// Unpacking digits into bits
 void unpack(uint8_t val)
 {
-    b0 = (val >> 0) & 1;   // A
-    b1 = (val >> 1) & 1;   // B
-    b2 = (val >> 2) & 1;   // C
-    b3 = (val >> 3) & 1;   // D
+    b0 = (val >> 0) & 1;
+    b1 = (val >> 1) & 1;
+    b2 = (val >> 2) & 1;
+    b3 = (val >> 3) & 1;
 }

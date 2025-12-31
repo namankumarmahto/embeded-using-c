@@ -80,8 +80,8 @@ Disassembly of section .text:
 
 08000204 <main>:
 uint8_t b0 = 0, b1 = 0, b2 = 0, b3 = 0;
-uint8_t mod = 16;
-uint8_t count_put = 0;   // 0 → UP counter, 1 → DOWN counter
+uint8_t mod = 10;          // ✅ ABCD counter → MOD-10
+uint8_t count_put = 0;     // 0 → UP (default), 1 → DOWN
 
 int main(void)
 {
@@ -113,8 +113,8 @@ int main(void)
  800022c:	2b00      	cmp	r3, #0
  800022e:	d0f8      	beq.n	8000222 <main+0x1e>
 
-            /* -------- MODE SELECTION -------- */
-            if (count_put == 0)       // UP counter
+            // -------- ABCD COUNTER LOGIC --------
+            if (count_put == 0)          // UP counter
  8000230:	4b13      	ldr	r3, [pc, #76]	@ (8000280 <main+0x7c>)
  8000232:	781b      	ldrb	r3, [r3, #0]
  8000234:	2b00      	cmp	r3, #0
@@ -139,7 +139,7 @@ int main(void)
  8000250:	607b      	str	r3, [r7, #4]
  8000252:	e00a      	b.n	800026a <main+0x66>
             }
-            else                      // DOWN counter
+            else                         // DOWN counter
             {
                 if (count > 0)
  8000254:	687b      	ldr	r3, [r7, #4]
@@ -176,7 +176,7 @@ int main(void)
     }
 }
 
-// bit porting function
+// bit porting function (ABCD → PC0–PC3)
 void bit_porting(void)
 {
  8000288:	b480      	push	{r7}
@@ -228,7 +228,7 @@ void GPIO_Init(void)
  80002de:	f042 0204 	orr.w	r2, r2, #4
  80002e2:	601a      	str	r2, [r3, #0]
 
-    *GPIOC_Moder &= ~(3 << 26);  // PC13 input
+    *GPIOC_Moder &= ~(3 << 26);  // PC13 input (button)
  80002e4:	4b0f      	ldr	r3, [pc, #60]	@ (8000324 <GPIO_Init+0x54>)
  80002e6:	681b      	ldr	r3, [r3, #0]
  80002e8:	681a      	ldr	r2, [r3, #0]
@@ -263,7 +263,7 @@ void GPIO_Init(void)
 
 08000328 <unpack>:
 
-// Unpacking digits into bits
+// Unpacking decimal digit into ABCD bits
 void unpack(uint8_t val)
 {
  8000328:	b480      	push	{r7}
@@ -271,13 +271,13 @@ void unpack(uint8_t val)
  800032c:	af00      	add	r7, sp, #0
  800032e:	4603      	mov	r3, r0
  8000330:	71fb      	strb	r3, [r7, #7]
-    b0 = (val >> 0) & 1;
+    b0 = (val >> 0) & 1;   // A
  8000332:	79fb      	ldrb	r3, [r7, #7]
  8000334:	f003 0301 	and.w	r3, r3, #1
  8000338:	b2da      	uxtb	r2, r3
  800033a:	4b10      	ldr	r3, [pc, #64]	@ (800037c <unpack+0x54>)
  800033c:	701a      	strb	r2, [r3, #0]
-    b1 = (val >> 1) & 1;
+    b1 = (val >> 1) & 1;   // B
  800033e:	79fb      	ldrb	r3, [r7, #7]
  8000340:	085b      	lsrs	r3, r3, #1
  8000342:	b2db      	uxtb	r3, r3
@@ -285,7 +285,7 @@ void unpack(uint8_t val)
  8000348:	b2da      	uxtb	r2, r3
  800034a:	4b0d      	ldr	r3, [pc, #52]	@ (8000380 <unpack+0x58>)
  800034c:	701a      	strb	r2, [r3, #0]
-    b2 = (val >> 2) & 1;
+    b2 = (val >> 2) & 1;   // C
  800034e:	79fb      	ldrb	r3, [r7, #7]
  8000350:	089b      	lsrs	r3, r3, #2
  8000352:	b2db      	uxtb	r3, r3
@@ -293,7 +293,7 @@ void unpack(uint8_t val)
  8000358:	b2da      	uxtb	r2, r3
  800035a:	4b0a      	ldr	r3, [pc, #40]	@ (8000384 <unpack+0x5c>)
  800035c:	701a      	strb	r2, [r3, #0]
-    b3 = (val >> 3) & 1;
+    b3 = (val >> 3) & 1;   // D
  800035e:	79fb      	ldrb	r3, [r7, #7]
  8000360:	08db      	lsrs	r3, r3, #3
  8000362:	b2db      	uxtb	r3, r3
