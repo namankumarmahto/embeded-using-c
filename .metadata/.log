@@ -37,3 +37,18 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-12-30 12:47:31.104
 !MESSAGE Indexed 'B3_MODE_COUNTER' (4 sources, 53 headers) in 0.363 sec: 1,956 declarations; 2,865 references; 0 unresolved inclusions; 3 syntax errors; 2 unresolved names (0.041%)
+!SESSION 2025-12-31 10:08:43.045 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-31 10:08:45.839
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-31 10:08:45.839
+!MESSAGE Log4j2 initialized with config file /home/naman/STM32CubeIDE/stm32f446/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-31 10:08:49.751
+!MESSAGE Started RMI Server, listening on port 41337

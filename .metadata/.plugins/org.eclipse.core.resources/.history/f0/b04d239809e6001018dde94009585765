@@ -1,0 +1,75 @@
+//write a program to implement a mode counter
+#include <stdint.h>
+
+// Base addresses
+#define RCC_Base     0x40023800
+#define GPIOA_Base   0x40020000
+#define GPIOC_Base   0x40020800
+
+//register pointers
+uint32_t *AHB1ENR = (uint32_t *)(RCC_Base + 0x30);
+uint32_t *GPIOC_MODER = (uint32_t *)(GPIOC_Base + 0x00);
+uint32_t *GPIOC_IDR = (uint32_t *)(GPIOC_Base + 0x10);
+uint32_t *GPIOA_ODR = (uint32_t *)(GPIOA_Base + 0x14);
+
+//function prototypes
+void GPIO_Init(void);
+void unpack (uint8_t);
+void bit_porting();
+
+//Global declarations
+unit8_t b0=0,b1=0,b2=0,b3=0;
+unit8_t mod 16;
+
+int main(void)
+{
+    uint32_t count = 0;
+    GPIO_Init();
+
+    /* Loop forever */
+    while (1) {
+        if (!(*GPIOC_IDR & (1<<13)))
+        {
+            while (!(*GPIOC_IDR & (1<<13)));
+            if (count< (mod-1))
+            {
+               count++;
+            }
+            else
+            {
+                count = 0;
+            }
+            unpack(count);
+            bit_porting();
+        }
+    }
+}
+
+//bit porting to GPIOC
+void bit_porting()
+{
+    *GPIOC_ODR &= ~(1<<13); // Clear PC13 output
+    *GPIOC_ODR |= (b0 << 13); // Set PC13 output
+}
+
+//unpack count into bits
+void unpack (uint8_t count)
+{
+    b0 = count & 1;
+    b1 = (count >> 1) & 1;
+    b2 = (count >> 2) & 1;
+    b3 = (count >> 3) & 1;
+}
+
+//initialize GPIO pins
+void GPIO_Init(void)
+{
+    *AHB1ENR |= (1<<0); // Enable GPIOA clock
+    *AHB1ENR |= (1<<2); // Enable GPIOC clock
+
+    *GPIOA_MODER &= ~(3<<10); // Clear PA5 mode bits
+    *GPIOA_MODER |= (1<<10); // Set PA5 as output
+
+    *GPIOC_MODER &= ~(3<<26); // Clear PC13 mode bits
+    *GPIOC_MODER |= (1<<26); // Set PC13 as input
+}
