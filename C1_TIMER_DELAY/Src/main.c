@@ -12,6 +12,15 @@ int main(void)
     GPIO_init();
     Timer_init();
     /* Loop forever */
+    TIM2-> CR1 |= (1<<5); //START timer operation
+    while(1)
+    {
+        GPIOA -> ODR |= (1<<5); //Set GPIOA.5 high
+        Timer_delay(); //Wait for 1 second
+        GPIOA -> ODR &= ~(1<<5); //Set GPIOA.5 low
+        Timer_delay(); //Wait for 1 second
+    }
+    
 }
 
 //GPIO Initialization
@@ -30,4 +39,10 @@ void Timer_init()
     TIM2->CNT = 0; // Counting register initialization; //Enable TIM2
 }
 
-//
+// Timer overflow checking
+void Timer_delay()
+{
+    TIM2->CR1 |= (1<<0); //Enable TIM2
+    while(TIM2->SR & (1<<0)); //Wait for overflow
+    TIM2->SR &= ~(1<<0); //Clear overflow flag
+}

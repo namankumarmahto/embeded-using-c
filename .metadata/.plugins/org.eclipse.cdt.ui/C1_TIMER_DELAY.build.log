@@ -7,3 +7,6 @@ arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32
 compilation terminated.
 make: *** [Src/subdir.mk:25: Src/main.o] Error 1
 "make -j16 all" terminated with exit code 2. Build might be incomplete.
+
+12:33:08 Build Failed. 2 errors, 0 warnings. (took 163ms)
+

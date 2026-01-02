@@ -618,3 +618,7 @@
 2026-01-02 11:53:00,928 [INFO] ApiDb:452 - User favorites Boards=[]
 2026-01-02 11:53:00,931 [INFO] ApiDb:448 - Save user favorites file /home/naman/.stm32cubeide/favorites.examples.txt: 0 item(s)
 2026-01-02 11:53:00,931 [INFO] ApiDb:452 - User favorites Examples=[]
+2026-01-02 12:15:21,126 [INFO] WebApp:194 - Connection lost
+2026-01-02 12:15:21,544 [INFO] WebApp:191 - Connection restablished
+2026-01-02 12:15:47,457 [INFO] WebApp:194 - Connection lost
+2026-01-02 12:15:47,802 [INFO] WebApp:191 - Connection restablished
