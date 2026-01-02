@@ -64,3 +64,6 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-12-31 13:01:16.159
 !MESSAGE Existing sessions are:
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-01-02 11:53:00.513
+!MESSAGE Indexed 'C1_TIMER_DELAY' (3 sources, 53 headers) in 0.663 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
