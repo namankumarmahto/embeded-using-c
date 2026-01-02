@@ -1,0 +1,48 @@
+
+#include <stdint.h>
+#include <stm32f4xx.h>
+
+//Function prototyping
+void GPIO_init();
+void Timer_init();
+void Timer_delay();
+
+int main(void)
+{
+    GPIO_init();
+    Timer_init();
+    /* Loop forever */
+    TIM2-> CR1 |= (1<<5); //START timer operation
+    while(1)
+    {
+        GPIOA -> ODR |= (1<<5); //Set GPIOA.5 high
+        Timer_delay(); //Wait for 1 second
+        GPIOA -> ODR &= ~(1<<5); //Set GPIOA.5 low
+        Timer_delay(); //Wait for 1 second
+    }
+
+}
+
+//GPIO Initialization
+void GPIO_init()
+{
+    RCC->AHB1ENR |= (1<<0); //Enable GPIOA clock
+    GPIOA->MODER &= ~(3<<10); //Reset both bits of GPIOA.5
+    GPIOA->MODER |= (1<<10); //Configure GPIOA.5 as output
+}
+//Timer Initialization
+void Timer_init()
+{
+    RCC->APB1ENR |= (1<<0); //Enable TIM2 clock
+    TIM2->PSC = 16000; //Frequency scaler
+    TIM2->ARR = 1000-1; //autoreload count
+    TIM2->CNT = 0; // Counting register initialization; //Enable TIM2
+}
+
+// Timer overflow checking
+void Timer_delay()
+{
+    TIM2->CR1 |= (1<<0); //Enable TIM2
+    while(TIM2->SR & (1<<0)); //Wait for overflow
+    TIM2->SR &= ~(1<<0); //Clear overflow flag
+}
