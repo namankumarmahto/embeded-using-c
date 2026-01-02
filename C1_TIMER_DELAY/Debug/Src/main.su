@@ -1,0 +1,4 @@
+../Src/main.c:10:5:main	8	static
+../Src/main.c:27:6:GPIO_init	4	static
+../Src/main.c:34:6:Timer_init	4	static
+../Src/main.c:43:6:Timer_delay	4	static
