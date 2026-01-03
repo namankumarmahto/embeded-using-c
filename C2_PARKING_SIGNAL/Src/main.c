@@ -1,15 +1,211 @@
 #include <stdint.h>
 
-#include <stdint.h>
+/* ================= BASE ADDRESSES ================= */
+#define RCC_BASE        0x40023800
+#define GPIOA_BASE      0x40020000
+#define GPIOB_BASE      0x40020400
+#define GPIOC_BASE      0x40020800
+#define TIM2_BASE       0x40000000
+#define USART3_BASE     0x40004800
+#define ADC1_BASE       0x40012000
+#define EXTI_BASE       0x40013C00
+#define SYSCFG_BASE     0x40013800
+#define SYSTICK_BASE    0xE000E010
 
-// Base addresses
-#define RCC_Base     0x40023800
-#define GPIOA_Base   0x40020000
-#define GPIOC_Base   0x40020800
+/* ================= REGISTER MACROS ================= */
+#define RCC_AHB1ENR     (*(uint32_t *)(RCC_BASE + 0x30))
+#define RCC_APB1ENR     (*(uint32_t *)(RCC_BASE + 0x40))
+#define RCC_APB2ENR     (*(uint32_t *)(RCC_BASE + 0x44))
 
+#define GPIOB_MODER     (*(uint32_t *)(GPIOB_BASE + 0x00))
+#define GPIOC_MODER     (*(uint32_t *)(GPIOC_BASE + 0x00))
+#define GPIOB_ODR       (*(uint32_t *)(GPIOB_BASE + 0x14))
+#define GPIOC_ODR       (*(uint32_t *)(GPIOC_BASE + 0x14))
 
+#define TIM2_PSC        (*(uint32_t *)(TIM2_BASE + 0x28))
+#define TIM2_ARR        (*(uint32_t *)(TIM2_BASE + 0x2C))
+#define TIM2_CNT        (*(uint32_t *)(TIM2_BASE + 0x24))
+#define TIM2_DIER       (*(uint32_t *)(TIM2_BASE + 0x0C))
+#define TIM2_SR         (*(uint32_t *)(TIM2_BASE + 0x10))
+#define TIM2_CR1        (*(uint32_t *)(TIM2_BASE + 0x00))
+
+#define USART3_SR       (*(uint32_t *)(USART3_BASE + 0x00))
+#define USART3_DR       (*(uint32_t *)(USART3_BASE + 0x04))
+#define USART3_BRR      (*(uint32_t *)(USART3_BASE + 0x08))
+#define USART3_CR1      (*(uint32_t *)(USART3_BASE + 0x0C))
+
+#define ADC1_CR2        (*(uint32_t *)(ADC1_BASE + 0x08))
+#define ADC1_DR         (*(uint32_t *)(ADC1_BASE + 0x4C))
+
+#define EXTI_IMR        (*(uint32_t *)(EXTI_BASE + 0x00))
+#define EXTI_FTSR       (*(uint32_t *)(EXTI_BASE + 0x0C))
+#define EXTI_PR         (*(uint32_t *)(EXTI_BASE + 0x14))
+
+#define SYSCFG_EXTICR1  (*(uint32_t *)(SYSCFG_BASE + 0x08))
+#define SYSCFG_EXTICR2  (*(uint32_t *)(SYSCFG_BASE + 0x0C))
+#define SYSCFG_EXTICR4  (*(uint32_t *)(SYSCFG_BASE + 0x14))
+
+#define SYST_CSR        (*(uint32_t *)(SYSTICK_BASE + 0x00))
+#define SYST_RVR        (*(uint32_t *)(SYSTICK_BASE + 0x04))
+#define SYST_CVR        (*(uint32_t *)(SYSTICK_BASE + 0x08))
+
+/* ================= GLOBAL FLAGS ================= */
+uint8_t i_i = 0;   // ignition
+uint8_t h_i = 0;   // headlight
+uint8_t r_i = 0;   // right indicator
+uint8_t l_i = 0;   // left indicator
+uint8_t data = 0;
+
+/* ================= FUNCTION PROTOTYPES ================= */
+void gpio_config(void);
+void interrupt_config(void);
+void initialize_timer(void);
+void start_timer(uint32_t arr);
+void stop_timer(void);
+void SysTick_Init(void);
+void config_usart(void);
+void usart_write(uint8_t ch);
+uint8_t usart_read(void);
+void fuel2(void);
+
+/* ================= MAIN ================= */
 int main(void)
 {
-    /* Loop forever */
+    gpio_config();
+    interrupt_config();
+    initialize_timer();
+    SysTick_Init();
+    config_usart();
+    fuel2();
 
+    while (1)
+    {
+        /* All logic handled in interrupts */
+    }
+}
+
+/* ================= GPIO CONFIG ================= */
+void gpio_config(void)
+{
+    RCC_AHB1ENR |= (1 << 1) | (1 << 2);   // GPIOB, GPIOC
+
+    GPIOB_MODER |= (1 << (14 * 2)) | (1 << (15 * 2)); // LED3, LED4
+    GPIOC_MODER |= (1 << (9 * 2));                   // Buzzer
+}
+
+/* ================= INTERRUPT CONFIG ================= */
+void interrupt_config(void)
+{
+    RCC_APB2ENR |= (1 << 14);   // SYSCFG enable
+
+    SYSCFG_EXTICR1 = 0;
+    SYSCFG_EXTICR2 = 0;
+    SYSCFG_EXTICR4 = 0;
+
+    EXTI_FTSR |= (1 << 3) | (1 << 4) | (1 << 7) | (1 << 15);
+    EXTI_IMR  |= (1 << 3) | (1 << 4) | (1 << 7) | (1 << 15);
+}
+
+/* ================= TIMER ================= */
+void initialize_timer(void)
+{
+    RCC_APB1ENR |= (1 << 0);
+
+    TIM2_PSC  = 16000 - 1;
+    TIM2_ARR  = 1000 - 1;
+    TIM2_CNT  = 0;
+    TIM2_DIER |= 1;
+}
+
+void start_timer(uint32_t arr)
+{
+    TIM2_ARR = arr - 1;
+    TIM2_CNT = 0;
+    TIM2_CR1 |= 1;
+}
+
+void stop_timer(void)
+{
+    TIM2_CR1 &= ~1;
+    TIM2_CNT = 0;
+}
+
+/* ================= SYSTICK ================= */
+void SysTick_Init(void)
+{
+    SYST_RVR = 16000 - 1;
+    SYST_CVR = 0;
+    SYST_CSR = 7;
+}
+
+void SysTick_Handler(void)
+{
+    static uint16_t count = 0;
+
+    if (i_i)
+    {
+        count++;
+        if (count == 500)
+        {
+            usart_write('j');
+            data = usart_read();
+            count = 0;
+        }
+        ADC1_CR2 |= (1 << 30);
+    }
+}
+
+/* ================= UART ================= */
+void config_usart(void)
+{
+    RCC_APB1ENR |= (1 << 18);
+    USART3_BRR = 0x683;
+    USART3_CR1 |= (1 << 2) | (1 << 3) | (1 << 13);
+}
+
+void usart_write(uint8_t ch)
+{
+    while (!(USART3_SR & (1 << 7)));
+    USART3_DR = ch;
+}
+
+uint8_t usart_read(void)
+{
+    if (USART3_SR & (1 << 5))
+        return USART3_DR;
+    return 0;
+}
+
+/* ================= ADC ================= */
+void fuel2(void)
+{
+    RCC_APB2ENR |= (1 << 8);
+    ADC1_CR2 |= 1;
+}
+
+/* ================= TIMER IRQ ================= */
+void TIM2_IRQHandler(void)
+{
+    if (TIM2_SR & 1)
+    {
+        if (r_i)
+        {
+            GPIOB_ODR ^= (1 << 14);
+            GPIOC_ODR ^= (1 << 9);
+        }
+
+        if (l_i)
+        {
+            GPIOB_ODR ^= (1 << 15);
+            GPIOC_ODR ^= (1 << 9);
+        }
+
+        if (h_i == 3)
+        {
+            GPIOB_ODR ^= (1 << 14) | (1 << 15);
+            GPIOC_ODR ^= (1 << 9);
+        }
+
+        TIM2_SR &= ~1;
+    }
 }
