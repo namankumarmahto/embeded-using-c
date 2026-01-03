@@ -1,17 +1,10 @@
-11:23:42 **** Incremental Build of configuration Debug for project C2_PARKING_SIGNAL ****
+12:24:07 **** Incremental Build of configuration Debug for project C2_PARKING_SIGNAL ****
 make -j16 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "C2_PARKING_SIGNAL.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/naman/STM32CubeIDE/stm32f446/C2_PARKING_SIGNAL/STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C2_PARKING_SIGNAL.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: C2_PARKING_SIGNAL.elf
- 
 arm-none-eabi-size  C2_PARKING_SIGNAL.elf 
-arm-none-eabi-objdump -h -S C2_PARKING_SIGNAL.elf  > "C2_PARKING_SIGNAL.list"
    text	   data	    bss	    dec	    hex	filename
-   1488	      0	   1576	   3064	    bf8	C2_PARKING_SIGNAL.elf
+   1028	      0	   1568	   2596	    a24	C2_PARKING_SIGNAL.elf
 Finished building: default.size.stdout
  
-Finished building: C2_PARKING_SIGNAL.list
- 
 
-11:23:42 Build Finished. 0 errors, 0 warnings. (took 212ms)
+12:24:08 Build Finished. 0 errors, 0 warnings. (took 161ms)
 
