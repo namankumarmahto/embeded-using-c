@@ -1,14 +1,21 @@
-11:09:12 **** Incremental Build of configuration Debug for project PARKING_SIGNAL ****
+12:17:56 **** Incremental Build of configuration Debug for project C2_PWM ****
 make -j16 all 
-arm-none-eabi-size  PARKING_SIGNAL.elf 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "C2_PWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/naman/STM32CubeIDE/stm32f446/C2_PWM/STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C2_PWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C2_PWM.elf
+ 
+arm-none-eabi-size  C2_PWM.elf 
+arm-none-eabi-objdump -h -S C2_PWM.elf  > "C2_PWM.list"
    text	   data	    bss	    dec	    hex	filename
-   1028	      0	   1568	   2596	    a24	PARKING_SIGNAL.elf
+   1192	      4	   1564	   2760	    ac8	C2_PWM.elf
 Finished building: default.size.stdout
  
-11:10:43 **** Incremental Build of configuration Debug for project C2_PWM ****
+Finished building: C2_PWM.list
+ 
+12:17:59 **** Incremental Build of configuration Debug for project C2_PWM ****
 make -j16 all 
 arm-none-eabi-size  C2_PWM.elf 
    text	   data	    bss	    dec	    hex	filename
-   1196	      4	   1564	   2764	    acc	C2_PWM.elf
+   1192	      4	   1564	   2760	    ac8	C2_PWM.elf
 Finished building: default.size.stdout
  

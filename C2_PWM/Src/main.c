@@ -1,78 +1,85 @@
 #include <stdint.h>
 #include "stm32f4xx.h"
 
-/* Function prototyping */
-void PA5_PWM_Config(GPIO_TypeDef *GPIO, uint8_t PIN);
-void TIM2_Config(void);
-void TIM2_DutyCycle(uint32_t count, uint8_t DutyCycle);
+/* Function prototypes */
+void PC6_PC8_PWM_Config(void);
+void TIM3_Config(void);
+void TIM3_DutyCycle(uint32_t period, uint8_t DutyCycle);
 
-/* Global declarations */
+/* Global */
 uint8_t Percentage_DutyCycle_Change = 5;
 
 int main(void)
 {
     uint32_t PWM_Period = 1000, count = 0, LC = 0;
 
-    PA5_PWM_Config(GPIOA, 5);
-    TIM2_Config();
+    PC6_PC8_PWM_Config();
+    TIM3_Config();
 
-    /* Enable TIM2 counter */
-    TIM2->CR1 |= (1 << 0);
+    /* Enable TIM3 counter */
+    TIM3->CR1 |= (1 << 0);
 
     while (1)
     {
         /* Increase duty cycle */
-        for (LC = 0; LC < (100 / Percentage_DutyCycle_Change); LC++)
+        for (LC = 0; LC <= (100 / Percentage_DutyCycle_Change); LC++)
         {
-            TIM2_DutyCycle(PWM_Period, (uint8_t)(LC * Percentage_DutyCycle_Change));
-            for (count = 0; count < 100000; count++);   // small delay
+            TIM3_DutyCycle(PWM_Period, LC * Percentage_DutyCycle_Change);
+            for (count = 0; count < 100000; count++);
         }
 
         /* Decrease duty cycle */
         for (LC = (100 / Percentage_DutyCycle_Change); LC > 0; LC--)
         {
-            TIM2_DutyCycle(PWM_Period, (uint8_t)(LC * Percentage_DutyCycle_Change));
-            for (count = 0; count < 100000; count++);   // small delay
+            TIM3_DutyCycle(PWM_Period, LC * Percentage_DutyCycle_Change);
+            for (count = 0; count < 100000; count++);
         }
     }
 }
 
-/* GPIO Config for PWM (PA5 -> AF1 -> TIM2_CH1) */
-void PA5_PWM_Config(GPIO_TypeDef *GPIO, uint8_t PIN)
+/* ================= GPIO CONFIG =================
+   PC6 → TIM3_CH1
+   PC8 → TIM3_CH3
+*/
+void PC6_PC8_PWM_Config(void)
 {
-    /* Enable GPIOA clock */
-    RCC->AHB1ENR |= (1 << 0);
+    /* Enable GPIOC clock */
+    RCC->AHB1ENR |= (1 << 2);
 
-    /* Set PA5 to Alternate Function mode (MODER5 = 10) */
-    GPIO->MODER &= ~(3U << (PIN * 2));
-    GPIO->MODER |=  (2U << (PIN * 2));   // 10
+    /* Set PC6 & PC8 to Alternate Function mode */
+    GPIOC->MODER &= ~((3 << 12) | (3 << 16));
+    GPIOC->MODER |=  ((2 << 12) | (2 << 16));
 
-    /* Select AF1 for PA5 (TIM2) -> AFRL5 = 0001 */
-    GPIO->AFR[0] &= ~(0xFU << (PIN * 4));
-    GPIO->AFR[0] |=  (1U   << (PIN * 4));
+    /* Select AF2 (TIM3) */
+    GPIOC->AFR[0] |= (2 << 24);   // PC6
+    GPIOC->AFR[1] |= (2 << 0);    // PC8
 }
 
-/* TIM2 Configuration for PWM on CH1 */
-void TIM2_Config(void)
+/* ================= TIM3 PWM CONFIG ================= */
+void TIM3_Config(void)
 {
-    /* Enable TIM2 clock */
-    RCC->APB1ENR |= (1 << 0);
+    /* Enable TIM3 clock */
+    RCC->APB1ENR |= (1 << 1);
 
-    TIM2->PSC = 0;
+    TIM3->PSC = 0;
 
-    /* OC1 preload enable */
-    TIM2->CCMR1 |= (1 << 3);
+    /* PWM Mode 1 */
+    TIM3->CCMR1 |= (6 << 4);    // CH1
+    TIM3->CCMR2 |= (6 << 4);    // CH3
 
-    /* PWM Mode 1 on CH1 (OC1M = 110 -> bits 6:4) */
-    TIM2->CCMR1 |= (6 << 4);
+    /* Preload enable */
+    TIM3->CCMR1 |= (1 << 3);
+    TIM3->CCMR2 |= (1 << 3);
 
-    /* Enable capture/compare 1 output */
-    TIM2->CCER |= (1 << 0);
+    /* Enable outputs */
+    TIM3->CCER |= (1 << 0);     // CH1 enable
+    TIM3->CCER |= (1 << 8);     // CH3 enable
 }
 
-/* Duty cycle calculation */
-void TIM2_DutyCycle(uint32_t count, uint8_t DutyCycle)
+/* ================= DUTY CYCLE ================= */
+void TIM3_DutyCycle(uint32_t period, uint8_t DutyCycle)
 {
-    TIM2->ARR  = 16000000U / count;
-    TIM2->CCR1 = (DutyCycle * TIM2->ARR) / 100U;
+    TIM3->ARR  = 16000000U / period;
+    TIM3->CCR1 = (DutyCycle * TIM3->ARR) / 100U;   // PC6
+    TIM3->CCR3 = (DutyCycle * TIM3->ARR) / 100U;   // PC8
 }

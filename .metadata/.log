@@ -460,3 +460,15 @@ java.lang.NullPointerException: Cannot invoke "org.eclipse.cdt.core.model.ICProj
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2026-01-05 11:10:46.778
 !MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2026-01-05 12:18:02.701
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 25 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2026-01-05 12:18:02.702
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2026-01-05 12:18:02.702
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 25 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2026-01-05 12:18:02.702
+!MESSAGE Existing sessions are:
