@@ -5,10 +5,6 @@ arm-none-eabi-size  PARKING_SIGNAL.elf
    1028	      0	   1568	   2596	    a24	PARKING_SIGNAL.elf
 Finished building: default.size.stdout
  
-11:10:43 **** Incremental Build of configuration Debug for project C2_PWM ****
-make -j16 all 
-arm-none-eabi-size  C2_PWM.elf 
-   text	   data	    bss	    dec	    hex	filename
-   1196	      4	   1564	   2764	    acc	C2_PWM.elf
-Finished building: default.size.stdout
- 
+
+11:09:12 Build Finished. 0 errors, 0 warnings. (took 159ms)
+

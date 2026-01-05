@@ -33,34 +33,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := PARKING_SIGNAL
+BUILD_ARTIFACT_NAME := C2_PWM
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-PARKING_SIGNAL.elf \
+C2_PWM.elf \
 
 MAP_FILES += \
-PARKING_SIGNAL.map \
+C2_PWM.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-PARKING_SIGNAL.list \
+C2_PWM.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: PARKING_SIGNAL.elf secondary-outputs
+main-build: C2_PWM.elf secondary-outputs
 
 # Tool invocations
-PARKING_SIGNAL.elf PARKING_SIGNAL.map: $(OBJS) $(USER_OBJS) /home/naman/STM32CubeIDE/stm32f446/C2_PARKING_SIGNAL/STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "PARKING_SIGNAL.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/naman/STM32CubeIDE/stm32f446/C2_PARKING_SIGNAL/STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PARKING_SIGNAL.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C2_PWM.elf C2_PWM.map: $(OBJS) $(USER_OBJS) /home/naman/STM32CubeIDE/stm32f446/C2_PWM/STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "C2_PWM.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/naman/STM32CubeIDE/stm32f446/C2_PWM/STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C2_PWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -69,14 +69,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-PARKING_SIGNAL.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "PARKING_SIGNAL.list"
+C2_PWM.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "C2_PWM.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) PARKING_SIGNAL.elf PARKING_SIGNAL.list PARKING_SIGNAL.map default.size.stdout
+	-$(RM) C2_PWM.elf C2_PWM.list C2_PWM.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
