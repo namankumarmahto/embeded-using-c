@@ -1,3 +1,4 @@
 1767590642543	Rename resource 'C2_PARKING_SIGNAL'
 1767590656521	Rename resource 'C3_PWM'
 1767590680225	Delete resource 'C2_PWM'
+1767771292412	Delete resource 'C4_ADC/Inc/adc'
