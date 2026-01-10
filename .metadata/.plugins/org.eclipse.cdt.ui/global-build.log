@@ -36,3 +36,73 @@ arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf
    2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
 Finished building: default.size.stdout
  
+11:11:45 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:12:00 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:12:11 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:16:09 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:29:47 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:31:11 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:58:34 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+11:59:50 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+12:00:27 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
+12:03:27 **** Incremental Build of configuration Debug for project C6_TEMPERATUR_SENSER ****
+make -j16 all 
+arm-none-eabi-size  C6_TEMPERATUR_SENSER.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2220	      0	   1576	   3796	    ed4	C6_TEMPERATUR_SENSER.elf
+Finished building: default.size.stdout
+ 
