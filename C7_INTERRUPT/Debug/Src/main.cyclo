@@ -1,0 +1,4 @@
+../Src/main.c:16:5:main	1
+../Src/main.c:28:6:GPIO_init	2
+../Src/main.c:39:6:TIM2_init	1
+../Src/main.c:51:6:TIM2_IRQHandler	1
