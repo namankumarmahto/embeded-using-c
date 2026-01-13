@@ -1,0 +1,5 @@
+../Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	2
+../Inc/core_cm4.h:1816:22:__NVIC_SetPriority	2
+../Src/main.c:28:5:main	1
+../Src/main.c:43:6:GPIO_init	2
+../Src/main.c:59:6:EXTI15_10_IRQHandler	3

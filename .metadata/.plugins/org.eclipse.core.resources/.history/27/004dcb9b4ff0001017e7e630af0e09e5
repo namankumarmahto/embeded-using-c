@@ -13,7 +13,7 @@ void TIM2_init(void);
 uint32_t volatile *pNVICIRQEnReg = (uint32_t*)0xE000E100;
 
 /* ================= main ================= */
-int main(void)<
+int main(void)
 {
     GPIO_init(GPIOA, 5, OUTPUT);   // PA5 LED
     TIM2_init();                  // Timer init

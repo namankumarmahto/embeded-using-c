@@ -17,13 +17,51 @@
  */
 
 #include <stdint.h>
+#include <stm32f4xx.h>
+#include <core_cm4.h>
 
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
+#define INPUT  1
+#define OUTPUT 0
+
+void GPIO_init(GPIO_TypeDef *GPIO, uint8_t PIN_No, uint8_t MODE);
 
 int main(void)
 {
-    /* Loop forever */
-	for(;;);
+    GPIO_init(GPIOA, 5, OUTPUT);
+    GPIO_init(GPIOC, 13, INPUT);
+
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+    NVIC_SetPriority(EXTI15_10_IRQn, 1);
+
+    SYSCFG->EXTICR[3] |= (1 << 5);
+    EXTI->RTSR |= (1 << 13);
+    EXTI->IMR  |= (1 << 13);
+
+    while (1);
+}
+
+void GPIO_init(GPIO_TypeDef *GPIO, uint8_t PIN_No, uint8_t MODE)
+{
+    RCC->AHB1ENR |= (1 << 0) | (1 << 2);
+    RCC->APB2ENR |= (1 << 14);
+
+    if (MODE == INPUT)
+    {
+        GPIO->MODER &= ~(3 << (PIN_No * 2));
+    }
+    else
+    {
+        GPIO->MODER &= ~(3 << (PIN_No * 2));
+        GPIO->MODER |=  (1 << (PIN_No * 2));
+    }
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+    if (EXTI->PR & (1 << 13))
+    {
+        GPIOA->ODR ^= (1 << 5);
+        for (int j = 0; j < 100000; j++);
+        EXTI->PR |= (1 << 13);
+    }
 }
