@@ -1,3 +1,17 @@
-2026-01-12 11:31:26,268 [ERROR] ConfigurationRetriever:142 - IOException on connection: Read timed out
-2026-01-12 11:33:42,292 [ERROR] ConfigurationRetriever:142 - IOException on connection: Read timed out
-2026-01-12 11:33:45,816 [ERROR] ConfigurationRetriever:142 - IOException on connection: Connect timed out
+2026-01-13 12:14:21,109 [INFO] WebApp:194 - Connection lost
+2026-01-13 12:14:28,786 [INFO] WebApp:191 - Connection restablished
+2026-01-13 12:23:02,574 [INFO] MainUpdater:2872 - connection check result : 10
+2026-01-13 12:23:02,716 [INFO] McuFinderGlobals:76 - Set McuFinderConnectedMode to true
+2026-01-13 12:23:02,719 [INFO] MultiScanPanel:200 - Auto-refresh data requested => check proxy status ongoing
+2026-01-13 12:23:02,719 [INFO] FinderPluginLoader:96 - Searching for filters in installed packs
+2026-01-13 12:23:03,757 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
+2026-01-13 12:23:03,757 [INFO] DetailPanel:341 - Set advertising image to /home/naman/STM32Cube/Repository//en.prom-stm32mp21-0126.png
+2026-01-13 12:23:07,529 [INFO] MultiScanPanel:200 - Auto-refresh data requested => check proxy status ongoing
+2026-01-13 12:23:07,573 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
+2026-01-13 12:23:07,573 [INFO] DetailPanel:341 - Set advertising image to /home/naman/STM32Cube/Repository//en.prom-stm32mp21-0126.png
+2026-01-13 12:23:09,696 [INFO] ApiDb:581 - Connected to CubeFinder SQLite database (/home/naman/.stmcufinder/plugins/mcufinder/mcu/cube-finder-db.db)
+2026-01-13 12:24:05,633 [INFO] McuFinderGlobals:76 - Set McuFinderConnectedMode to true
+2026-01-13 12:24:05,637 [INFO] ApiDb:448 - Save user favorites file /home/naman/.stm32cubeide/favorites.mcus.txt: 0 item(s)
+2026-01-13 12:24:05,637 [INFO] ApiDb:452 - User favorites MCUs=[]
+2026-01-13 12:24:05,638 [INFO] ApiDb:448 - Save user favorites file /home/naman/.stm32cubeide/favorites.boards.txt: 0 item(s)
+2026-01-13 12:24:05,638 [INFO] ApiDb:452 - User favorites Boards=[]

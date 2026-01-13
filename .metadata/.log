@@ -841,3 +841,6 @@ java.lang.NullPointerException: Cannot read the array length because "containers
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2026-01-12 11:35:32.589
 !MESSAGE Existing sessions are:
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-01-13 12:24:05.244
+!MESSAGE Indexed 'C8_EXT_INT' (3 sources, 53 headers) in 0.157 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
