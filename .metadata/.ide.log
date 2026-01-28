@@ -1,21 +1,20 @@
-2026-01-13 12:14:21,109 [INFO] WebApp:194 - Connection lost
-2026-01-13 12:14:28,786 [INFO] WebApp:191 - Connection restablished
-2026-01-13 12:23:02,574 [INFO] MainUpdater:2872 - connection check result : 10
-2026-01-13 12:23:02,716 [INFO] McuFinderGlobals:76 - Set McuFinderConnectedMode to true
-2026-01-13 12:23:02,719 [INFO] MultiScanPanel:200 - Auto-refresh data requested => check proxy status ongoing
-2026-01-13 12:23:02,719 [INFO] FinderPluginLoader:96 - Searching for filters in installed packs
-2026-01-13 12:23:03,757 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
-2026-01-13 12:23:03,757 [INFO] DetailPanel:341 - Set advertising image to /home/naman/STM32Cube/Repository//en.prom-stm32mp21-0126.png
-2026-01-13 12:23:07,529 [INFO] MultiScanPanel:200 - Auto-refresh data requested => check proxy status ongoing
-2026-01-13 12:23:07,573 [INFO] LoadUrlFilesThread:185 - End of LoadServerUrlFiles without Thread
-2026-01-13 12:23:07,573 [INFO] DetailPanel:341 - Set advertising image to /home/naman/STM32Cube/Repository//en.prom-stm32mp21-0126.png
-2026-01-13 12:23:09,696 [INFO] ApiDb:581 - Connected to CubeFinder SQLite database (/home/naman/.stmcufinder/plugins/mcufinder/mcu/cube-finder-db.db)
-2026-01-13 12:24:05,633 [INFO] McuFinderGlobals:76 - Set McuFinderConnectedMode to true
-2026-01-13 12:24:05,637 [INFO] ApiDb:448 - Save user favorites file /home/naman/.stm32cubeide/favorites.mcus.txt: 0 item(s)
-2026-01-13 12:24:05,637 [INFO] ApiDb:452 - User favorites MCUs=[]
-2026-01-13 12:24:05,638 [INFO] ApiDb:448 - Save user favorites file /home/naman/.stm32cubeide/favorites.boards.txt: 0 item(s)
-2026-01-13 12:24:05,638 [INFO] ApiDb:452 - User favorites Boards=[]
-2026-01-13 12:44:28,264 [INFO] WebApp:194 - Connection lost
-2026-01-13 12:44:32,533 [INFO] WebApp:191 - Connection restablished
-2026-01-13 12:44:41,473 [INFO] WebApp:194 - Connection lost
-2026-01-13 12:44:41,762 [INFO] WebApp:191 - Connection restablished
+2026-01-23 00:19:34,497 [INFO] WebApp:194 - Connection lost
+2026-01-23 11:28:53,308 [INFO] WebApp:191 - Connection restablished
+2026-01-23 11:28:54,900 [INFO] WebApp:194 - Connection lost
+2026-01-23 11:28:55,653 [INFO] WebApp:191 - Connection restablished
+2026-01-23 11:30:11,554 [INFO] WebApp:194 - Connection lost
+2026-01-23 11:30:11,858 [INFO] WebApp:191 - Connection restablished
+2026-01-23 11:30:14,065 [INFO] WebApp:194 - Connection lost
+2026-01-23 11:30:14,312 [INFO] WebApp:191 - Connection restablished
+2026-01-23 12:18:13,441 [INFO] WebApp:194 - Connection lost
+2026-01-23 12:18:19,783 [INFO] WebApp:191 - Connection restablished
+2026-01-23 12:41:38,728 [INFO] WebApp:194 - Connection lost
+2026-01-23 12:41:43,589 [INFO] WebApp:191 - Connection restablished
+2026-01-23 12:41:45,594 [INFO] WebApp:194 - Connection lost
+2026-01-23 12:41:45,849 [INFO] WebApp:191 - Connection restablished
+2026-01-23 15:20:25,208 [INFO] WebApp:194 - Connection lost
+2026-01-23 15:20:29,731 [INFO] WebApp:191 - Connection restablished
+2026-01-23 15:20:31,771 [INFO] WebApp:194 - Connection lost
+2026-01-23 15:20:32,524 [INFO] WebApp:191 - Connection restablished
+2026-01-23 15:42:31,802 [INFO] WebApp:194 - Connection lost
+2026-01-23 15:42:38,173 [INFO] WebApp:191 - Connection restablished

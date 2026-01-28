@@ -80,7 +80,7 @@ Disassembly of section .text:
 
 08000204 <main>:
 uint8_t b0 = 0, b1 = 0, b2 = 0, b3 = 0;
-uint8_t mod = 10;          // ✅ ABCD counter → MOD-10
+uint8_t mod = 10;          // ABCD counter → MOD-10
 uint8_t count_put = 0;     // 0 → UP (default), 1 → DOWN
 
 int main(void)
